@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Project, ProjectStatus } from './project.model';
 import { v4 as uuid } from 'uuid';
+import { CreateProjectDto } from './dto/create-project.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -10,7 +11,8 @@ export class ProjectsService {
     return this.projects;
   }
 
-  createProject(title: string, description: string): Project {
+  createProject(createProjectDto: CreateProjectDto): Project {
+    const { title, description } = createProjectDto;
     const project: Project = {
       id: uuid(),
       title,
