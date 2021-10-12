@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { Project } from './project.model';
 
@@ -9,5 +9,12 @@ export class ProjectsController {
   @Get()
   getAllProjects(): Project[] {
     return this.projectsService.getAllProjects();
+  }
+  @Post()
+  createProject(
+    @Body('title') title: string,
+    @Body('description') description: string,
+  ): Project {
+    return this.projectsService.createProject(title, description);
   }
 }
