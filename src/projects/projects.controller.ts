@@ -20,7 +20,7 @@ export class ProjectsController {
     return this.projectsService.createProject(createProjectDto);
   }
   @Delete('/:id')
-  deleteTask(@Param('id') id: string): void {
-    return this.projectsService.deleteTask(id);
+  deleteProject(@Param('id') id: string): void {
+    return this.projectsService.deleteProject(id);
   }
 }

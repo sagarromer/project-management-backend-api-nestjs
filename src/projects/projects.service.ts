@@ -24,7 +24,7 @@ export class ProjectsService {
     this.projects.push(project);
     return project;
   }
-  deleteTask(id: string): void {
+  deleteProject(id: string): void {
     this.projects = this.projects.filter((project) => project.id !== id);
   }
 }
