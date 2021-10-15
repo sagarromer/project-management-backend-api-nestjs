@@ -10,7 +10,9 @@ export class ProjectsService {
   getAllProjects(): Project[] {
     return this.projects;
   }
-
+  getProjectById(id: string): Project {
+    return this.projects.find((project) => project.id === id);
+  }
   createProject(createProjectDto: CreateProjectDto): Project {
     const { title, description } = createProjectDto;
     const project: Project = {
