@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Project, ProjectStatus } from './project.model';
 import { v4 as uuid } from 'uuid';
 import { CreateProjectDto } from './dto/create-project.dto';
+import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -32,7 +33,7 @@ export class ProjectsService {
     project.status = status;
     return project;
   }
-  getProjectsWithFilters(filterDto: GetProjectsFilterDto): Task[] {
+  getProjectsWithFilters(filterDto: GetProjectsFilterDto): Project[] {
     const { status, search } = filterDto;
 
     let projects = this.getAllProjects();
