@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Project, ProjectStatus } from './project.model';
 import { v4 as uuid } from 'uuid';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -12,7 +12,11 @@ export class ProjectsService {
     return this.projects;
   }
   getProjectById(id: string): Project {
-    return this.projects.find((project) => project.id === id);
+    const found = this.projects.find((project) => project.id === id);
+    if (!found) {
+      throw new NotFoundException(`Project with ID "${id}" not found`);
+    }
+    return found;
   }
   createProject(createProjectDto: CreateProjectDto): Project {
     const { title, description } = createProjectDto;
