@@ -32,4 +32,29 @@ export class ProjectsService {
     project.status = status;
     return project;
   }
+  getProjectsWithFilters(filterDto: GetProjectsFilterDto): Task[] {
+    const { status, search } = filterDto;
+
+    let projects = this.getAllProjects();
+
+    // do something with status
+    if (status) {
+      projects = projects.filter((project) => project.status === status);
+    }
+
+    if (search) {
+      projects = projects.filter((project) => {
+        if (
+          project.title.includes(search) ||
+          project.description.includes(search)
+        ) {
+          return true;
+        }
+
+        return false;
+      });
+    }
+
+    return projects;
+  }
 }
