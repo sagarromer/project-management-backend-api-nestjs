@@ -27,4 +27,9 @@ export class ProjectsService {
   deleteProject(id: string): void {
     this.projects = this.projects.filter((project) => project.id !== id);
   }
+  updateProjectStatus(id: string, status: ProjectStatus) {
+    const project = this.getProjectById(id);
+    project.status = status;
+    return project;
+  }
 }

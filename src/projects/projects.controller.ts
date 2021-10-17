@@ -1,7 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectsService } from './projects.service';
-import { Project } from './project.model';
+import { Project, ProjectStatus } from './project.model';
 
 @Controller('projects')
 export class ProjectsController {
@@ -22,5 +30,12 @@ export class ProjectsController {
   @Delete('/:id')
   deleteProject(@Param('id') id: string): void {
     return this.projectsService.deleteProject(id);
+  }
+  @Patch('/:id/status')
+  updateProjectStatus(
+    @Param('id') id: string,
+    @Body('status') status: ProjectStatus,
+  ): Project {
+    return this.projectsService.updateProjectStatus(id, status);
   }
 }
