@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectsService } from './projects.service';
+import { UpdateProjectStatusDto } from './dto/update-project-status.dto';
 import { Project, ProjectStatus } from './project.model';
 import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
 
@@ -40,8 +41,9 @@ export class ProjectsController {
   @Patch('/:id/status')
   updateProjectStatus(
     @Param('id') id: string,
-    @Body('status') status: ProjectStatus,
+    @Body('status') updateProjectStatusDto: UpdateProjectStatusDto,
   ): Project {
+    const { status } = updateProjectStatusDto;
     return this.projectsService.updateProjectStatus(id, status);
   }
 }
