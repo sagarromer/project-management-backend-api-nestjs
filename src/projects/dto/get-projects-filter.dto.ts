@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional, IsString } from 'class-validator';
-import { ProjectStatus } from '../project.model';
+import { ProjectStatus } from '../project-status.enum';
 
 export class GetProjectsFilterDto {
   @IsOptional()
