@@ -20,4 +20,7 @@ export class ProjectsService {
 
     return found;
   }
+  createProject(createProjectDto: CreateProjectDto): Promise<Project> {
+    return this.projectsRepository.createProject(createProjectDto);
+  }
 }

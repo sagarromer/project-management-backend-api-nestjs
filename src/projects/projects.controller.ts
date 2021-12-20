@@ -20,7 +20,11 @@ export class ProjectsController {
   constructor(private projectsService: ProjectsService) {}
 
   @Get('/:id')
-  getTaskById(@Param('id') id: string): Promise<Project> {
+  getProjectById(@Param('id') id: string): Promise<Project> {
     return this.projectsService.getProjectById(id);
+  }
+  @Post()
+  createProject(@Body() createProjectDto: CreateProjectDto): Promise<Project> {
+    return this.projectsService.createProject(createProjectDto);
   }
 }
