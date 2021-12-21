@@ -27,4 +27,8 @@ export class ProjectsController {
   createProject(@Body() createProjectDto: CreateProjectDto): Promise<Project> {
     return this.projectsService.createProject(createProjectDto);
   }
+  @Delete('/:id')
+  deleteProject(@Param('id') id: string): Promise<void> {
+    return this.projectsService.deleteProject(id);
+  }
 }

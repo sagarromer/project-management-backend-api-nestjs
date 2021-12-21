@@ -23,4 +23,11 @@ export class ProjectsService {
   createProject(createProjectDto: CreateProjectDto): Promise<Project> {
     return this.projectsRepository.createProject(createProjectDto);
   }
+  async deleteProject(id: string): Promise<void> {
+    const result = await this.projectsRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Project with ID "${id}" not found`);
+    }
+  }
 }
