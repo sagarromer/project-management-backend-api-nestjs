@@ -31,4 +31,12 @@ export class ProjectsController {
   deleteProject(@Param('id') id: string): Promise<void> {
     return this.projectsService.deleteProject(id);
   }
+  @Patch('/:id/status')
+  updateProjectStatus(
+    @Param('id') id: string,
+    @Body() updateProjectStatusDto: UpdateProjectStatusDto,
+  ): Promise<Project> {
+    const { status } = updateProjectStatusDto;
+    return this.projectsService.updateProjectStatus(id, status);
+  }
 }

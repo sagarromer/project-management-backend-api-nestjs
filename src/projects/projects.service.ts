@@ -30,4 +30,15 @@ export class ProjectsService {
       throw new NotFoundException(`Project with ID "${id}" not found`);
     }
   }
+  async updateProjectStatus(
+    id: string,
+    status: ProjectStatus,
+  ): Promise<Project> {
+    const project = await this.getProjectById(id);
+
+    project.status = status;
+    await this.projectsRepository.save(project);
+
+    return project;
+  }
 }
