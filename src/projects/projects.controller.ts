@@ -18,7 +18,10 @@ import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
 @Controller('projects')
 export class ProjectsController {
   constructor(private projectsService: ProjectsService) {}
-
+  @Get()
+  getProjects(@Query() filterDto: GetProjectsFilterDto): Promise<Project[]> {
+    return this.projectsService.getProjects(filterDto);
+  }
   @Get('/:id')
   getProjectById(@Param('id') id: string): Promise<Project> {
     return this.projectsService.getProjectById(id);

@@ -41,4 +41,5 @@ export class ProjectsService {
 
     return project;
   }
+  getProjects(filterDto: GetProjectsFilterDto): Promise<Project[]> {}
 }
