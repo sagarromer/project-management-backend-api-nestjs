@@ -18,16 +18,24 @@ import { UpdateProjectStatusDto } from './dto/update-project-status.dto';
 import { ProjectStatus } from './project-status.enum';
 import { Project } from './project.entity';
 import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
+import { Logger } from '@nestjs/common';
 
 @Controller('projects')
 @UseGuards(AuthGuard())
 export class ProjectsController {
+  private logger = new Logger('ProjectsController');
+
   constructor(private projectsService: ProjectsService) {}
   @Get()
   getProjects(
     @Query() filterDto: GetProjectsFilterDto,
     @GetUser() user: User,
   ): Promise<Project[]> {
+    this.logger.verbose(
+      `User "${
+        user.username
+      }" retrieving all projects. Filters: ${JSON.stringify(filterDto)}`,
+    );
     return this.projectsService.getProjects(filterDto, user);
   }
   @Get('/:id')
@@ -42,6 +50,11 @@ export class ProjectsController {
     @Body() createProjectDto: CreateProjectDto,
     @GetUser() user: User,
   ): Promise<Project> {
+    this.logger.verbose(
+      `User "${user.username}" creating a new project. Data: ${JSON.stringify(
+        createProjectDto,
+      )}`,
+    );
     return this.projectsService.createProject(createProjectDto, user);
   }
   @Delete('/:id')

@@ -4,9 +4,12 @@ import { CreateProjectDto } from './dto/create-project.dto';
 import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
 import { ProjectStatus } from './project-status.enum';
 import { Project } from './project.entity';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 
 @EntityRepository(Project)
 export class ProjectsRepository extends Repository<Project> {
+  private logger = new Logger('ProjectsRepository', true);
+
   async createProject(
     createProjectDto: CreateProjectDto,
     user: User,
@@ -43,7 +46,17 @@ export class ProjectsRepository extends Repository<Project> {
       );
     }
 
-    const projects = await query.getMany();
-    return projects;
+    try {
+      const projects = await query.getMany();
+      return projects;
+    } catch (error) {
+      this.logger.error(
+        `Failed to get projects for user "${
+          user.username
+        }". Filters: ${JSON.stringify(filterDto)}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException();
+    }
   }
 }
