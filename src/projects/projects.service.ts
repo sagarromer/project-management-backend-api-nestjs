@@ -13,8 +13,10 @@ export class ProjectsService {
     @InjectRepository(ProjectsRepository)
     private projectsRepository: ProjectsRepository,
   ) {}
-  async getProjectById(id: string): Promise<Project> {
-    const found = await this.projectsRepository.findOne(id);
+  async getProjectById(id: string, user: User): Promise<Project> {
+    const found = await this.projectsRepository.findOne({
+      where: { id, user },
+    });
 
     if (!found) {
       throw new NotFoundException(`Project with ID "${id}" not found`);

@@ -31,8 +31,11 @@ export class ProjectsController {
     return this.projectsService.getProjects(filterDto, user);
   }
   @Get('/:id')
-  getProjectById(@Param('id') id: string): Promise<Project> {
-    return this.projectsService.getProjectById(id);
+  getProjectById(
+    @Param('id') id: string,
+    @GetUser() user: User,
+  ): Promise<Project> {
+    return this.projectsService.getProjectById(id, user);
   }
   @Post()
   createProject(
