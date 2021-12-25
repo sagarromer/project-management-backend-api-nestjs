@@ -45,8 +45,8 @@ export class ProjectsController {
     return this.projectsService.createProject(createProjectDto, user);
   }
   @Delete('/:id')
-  deleteProject(@Param('id') id: string): Promise<void> {
-    return this.projectsService.deleteProject(id);
+  deleteProject(@Param('id') id: string, @GetUser() user: User): Promise<void> {
+    return this.projectsService.deleteProject(id, user);
   }
   @Patch('/:id/status')
   updateProjectStatus(
