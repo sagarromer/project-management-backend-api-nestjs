@@ -46,5 +46,7 @@ export class ProjectsService {
 
     return project;
   }
-  getProjects(filterDto: GetProjectsFilterDto): Promise<Project[]> {}
+  getProjects(filterDto: GetProjectsFilterDto, user: User): Promise<Project[]> {
+    return this.projectsRepository.getProjects(filterDto, user);
+  }
 }

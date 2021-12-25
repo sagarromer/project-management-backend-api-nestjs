@@ -23,10 +23,14 @@ export class ProjectsRepository extends Repository<Project> {
     await this.save(project);
     return project;
   }
-  async getProjects(filterDto: GetProjectsFilterDto): Promise<Project[]> {
+  async getProjects(
+    filterDto: GetProjectsFilterDto,
+    user: User,
+  ): Promise<Project[]> {
     const { status, search } = filterDto;
 
     const query = this.createQueryBuilder('project');
+    query.where({ user });
 
     if (status) {
       query.andWhere('project.status = :status', { status });
