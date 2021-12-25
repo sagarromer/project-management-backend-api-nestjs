@@ -10,6 +10,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectsService } from './projects.service';
 import { UpdateProjectStatusDto } from './dto/update-project-status.dto';
@@ -30,8 +32,11 @@ export class ProjectsController {
     return this.projectsService.getProjectById(id);
   }
   @Post()
-  createProject(@Body() createProjectDto: CreateProjectDto): Promise<Project> {
-    return this.projectsService.createProject(createProjectDto);
+  createProject(
+    @Body() createProjectDto: CreateProjectDto,
+    @GetUser() user: User,
+  ): Promise<Project> {
+    return this.projectsService.createProject(createProjectDto, user);
   }
   @Delete('/:id')
   deleteProject(@Param('id') id: string): Promise<void> {

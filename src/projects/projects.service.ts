@@ -5,6 +5,8 @@ import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
 import { ProjectsRepository } from './projects.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './project.entity';
+import { User } from 'src/auth/user.entity';
+
 @Injectable()
 export class ProjectsService {
   constructor(
@@ -20,8 +22,11 @@ export class ProjectsService {
 
     return found;
   }
-  createProject(createProjectDto: CreateProjectDto): Promise<Project> {
-    return this.projectsRepository.createProject(createProjectDto);
+  createProject(
+    createProjectDto: CreateProjectDto,
+    user: User,
+  ): Promise<Project> {
+    return this.projectsRepository.createProject(createProjectDto, user);
   }
   async deleteProject(id: string): Promise<void> {
     const result = await this.projectsRepository.delete(id);
