@@ -7,7 +7,9 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { ProjectsService } from './projects.service';
 import { UpdateProjectStatusDto } from './dto/update-project-status.dto';
@@ -16,6 +18,7 @@ import { Project } from './project.entity';
 import { GetProjectsFilterDto } from './dto/get-projects-filter.dto';
 
 @Controller('projects')
+@UseGuards(AuthGuard())
 export class ProjectsController {
   constructor(private projectsService: ProjectsService) {}
   @Get()
