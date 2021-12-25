@@ -52,8 +52,9 @@ export class ProjectsController {
   updateProjectStatus(
     @Param('id') id: string,
     @Body() updateProjectStatusDto: UpdateProjectStatusDto,
+    @GetUser() user: User,
   ): Promise<Project> {
     const { status } = updateProjectStatusDto;
-    return this.projectsService.updateProjectStatus(id, status);
+    return this.projectsService.updateProjectStatus(id, status, user);
   }
 }

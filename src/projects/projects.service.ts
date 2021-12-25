@@ -40,8 +40,9 @@ export class ProjectsService {
   async updateProjectStatus(
     id: string,
     status: ProjectStatus,
+    user: User,
   ): Promise<Project> {
-    const project = await this.getProjectById(id);
+    const project = await this.getProjectById(id, user);
 
     project.status = status;
     await this.projectsRepository.save(project);
