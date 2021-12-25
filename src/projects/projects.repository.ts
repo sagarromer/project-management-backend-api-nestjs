@@ -38,7 +38,7 @@ export class ProjectsRepository extends Repository<Project> {
 
     if (search) {
       query.andWhere(
-        'LOWER(project.title) LIKE LOWER(:search) OR LOWER(project.description) LIKE LOWER(:search)',
+        '(LOWER(project.title) LIKE LOWER(:search) OR LOWER(project.description) LIKE LOWER(:search))',
         { search: `%${search}%` },
       );
     }
